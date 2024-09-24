@@ -8,7 +8,7 @@ class Program
         string userInput = Console.ReadLine();
         int percentage = int.Parse(userInput);
 
-        string letterGrade = "";
+        string letterGrade;
 
         if (percentage >= 90)
         {
