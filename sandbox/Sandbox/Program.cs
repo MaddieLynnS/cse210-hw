@@ -1,23 +1,34 @@
 using System;
 
+class Box
+{
+    public double _height;
+    public double _width;
+    public double _length;
+    public string _unit;
+
+    public string describe()
+    {
+        return $"Box with length {_length} and width {_width} and height {_height} using the {_unit} unit";
+    }
+
+    public double volume()
+    {
+        return _length * _width * _height;
+    }
+
+}
+
 class Program
 {
     static void Main(string[] args)
     {
-        Console.Write("Enter your favorite color: ");
-        string color = Console.ReadLine();
-        Console.WriteLine($"Here is your favorite color: {color}");
+        Box myBox = new Box();
+        myBox._height = 2;
+        myBox._length = 7;
+        myBox._width = 4;
+        myBox._unit = "yard";
 
-        List<string> animals = new List<string>();
-        animals.Add("chicken");
-        animals.Add("goat");
-        animals.Add("sheep");
-        animals.Add("cow");
-
-        Console.WriteLine("Animals:");
-        foreach (string animal in animals)
-        {
-            Console.WriteLine($" * {animal}");
-        }
+        Console.WriteLine(myBox.describe());
     }
 }
