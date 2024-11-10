@@ -26,8 +26,7 @@ public class ListingActivity : Activity
     {
         Console.Clear();
         Console.WriteLine("Get ready...");
-        LoadingSymbol();
-        LoadingSymbol();
+        LoadingSymbol(2);
 
         //Chooses a random question to show to the user
         Console.WriteLine("\nThink about all the responses you have for this prompt:\n");
@@ -50,6 +49,6 @@ public class ListingActivity : Activity
         }
         
         Console.WriteLine($"\n\nYou listed {totalItems} items!");
-        LoadingSymbol();
+        LoadingSymbol(1);
     }
 }

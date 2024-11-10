@@ -13,8 +13,7 @@ public class BreathingActivity : Activity
     {
         Console.Clear();
         Console.WriteLine("Get ready...");
-        LoadingSymbol();
-        LoadingSymbol();
+        LoadingSymbol(2);
         
         StartTimer();
         while(!TimesUp())

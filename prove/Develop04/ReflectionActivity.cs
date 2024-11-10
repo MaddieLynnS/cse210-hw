@@ -39,8 +39,7 @@ public class ReflectionActivity : Activity
     {
         Console.Clear();
         Console.WriteLine("Get ready...");
-        LoadingSymbol();
-        LoadingSymbol();
+        LoadingSymbol(2);
 
         //Chooses a random prompt and displays it
         Console.WriteLine("\nConsider the following prompt: ");
@@ -66,9 +65,7 @@ public class ReflectionActivity : Activity
             questionIndex = random.Next(0, _questions.Count);
             Console.Write($"\n> {_questions[questionIndex]} ");
             _questions.RemoveAt(questionIndex);
-            LoadingSymbol();
-            LoadingSymbol();
-            LoadingSymbol();
+            LoadingSymbol(3);
         }
     }
 }
