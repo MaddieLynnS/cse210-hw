@@ -38,5 +38,5 @@ public abstract class SmartDevice
         _timeOn = 0;
     }
 
-    public abstract void AboutDevice();
+    public abstract string AboutDevice();
 }

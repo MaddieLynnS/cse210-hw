@@ -5,8 +5,8 @@ public class SmartLight : SmartDevice
         _timeOn = 0;
     }
 
-    public override void AboutDevice()
+    public override string AboutDevice()
     {
-        return $"{name}: {isOn}";
+        return $"{_name}: {_isOn}";
     }
 }
