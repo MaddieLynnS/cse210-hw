@@ -9,4 +9,10 @@ public class Submission : Assignment
         _fileName = file;
         _docType = type;
     }
+
+    public override void PrintAssignmentInfo()
+    {
+        Console.WriteLine($"This Submission Assignment has this file: {_fileName}."+
+        $"\nIt's due on {GetDate()} and it's worth {GetPoints()} points.");
+    }
 }

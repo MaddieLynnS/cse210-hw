@@ -11,4 +11,10 @@ public class Test : Assignment
         _questionAmount = questions;
         _response = res;
     }
+
+    public override void PrintAssignmentInfo()
+    {
+        Console.WriteLine($"This Test Assignment has {_questionAmount} and requires a response."+
+        $"\nIt's due on {GetDate()} and it's worth {GetPoints()} points.");
+    }
 }

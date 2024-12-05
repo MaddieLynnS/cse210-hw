@@ -7,4 +7,10 @@ public class Quiz : Assignment
     {
         _questionAmount = questions;
     }
+
+    public override void PrintAssignmentInfo()
+    {
+        Console.WriteLine($"This Quiz Assignment has {_questionAmount} questions."+
+        $"\nIt's due on {GetDate()} and it's worth {GetPoints()} points.");
+    }
 }

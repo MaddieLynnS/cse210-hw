@@ -11,4 +11,11 @@ public class Discussion : Assignment
         _wordCount = count;
         _numRequiredResponses = res;
     }
+
+    public override void PrintAssignmentInfo()
+    {
+        Console.WriteLine($"This Discussion assignment is about {_topic} "+
+        $"and requires {_numRequiredResponses}.\n It is due on {GetDate()}"+
+        $" and is worth {GetPoints()}.");
+    }
 }

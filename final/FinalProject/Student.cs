@@ -16,7 +16,7 @@ public class Student
             i++;
         }
     }
-    
+
     //prints list of assignments with due dates in the next week
     //I don't need to save this list for any reason, so I just print it here
     public void ShowCloseAssignments()
@@ -60,5 +60,6 @@ public class Student
     //- 6,9,2,5,7,1,3,4,8
     //if assignment takes a lot longer to complete, move it up
     //- 6,9,2,5,7,1,4,3,8
+    //if assignment comes from a course with a lower grade, it moves up
 
 }

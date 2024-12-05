@@ -9,7 +9,7 @@ public abstract class Assignment
     //if it should be moved up in the priority list
     //private string _importance;
 
-    //Potential duration to complete assignment in hours
+    //Potential duration to complete assignment in minutes
     private int _timeToComplete;
 
     private DateTime _dueDate;
@@ -25,6 +25,22 @@ public abstract class Assignment
         _timeToComplete = duration;
         _dueDate = due;
     }
+
+    public DateTime GetDate()
+    {
+        return _dueDate;
+    }
+
+    public int GetPoints()
+    {
+        return _pointValue;
+    }
+
+    public abstract void PrintAssignmentInfo();
+    //public abstract void CompleteAssignment();
+    
+    //don't know if I need this
+    //public abstract void CalculatePriority();
 
 
 }
