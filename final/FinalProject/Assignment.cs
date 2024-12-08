@@ -7,7 +7,7 @@ public abstract class Assignment
     //I'm not sure yet if I need this.
     //it's like a weight/urgency indicating
     //if it should be moved up in the priority list
-    //private string _importance;
+    private int _priorty = 0;
 
     //Potential duration to complete assignment in minutes
     private int _timeToComplete;
@@ -37,10 +37,14 @@ public abstract class Assignment
     }
 
     public abstract void PrintAssignmentInfo();
-    //public abstract void CompleteAssignment();
+    public abstract void CompleteAssignment();
     
-    //don't know if I need this
-    //public abstract void CalculatePriority();
+    //Order by a sorting value, increase points depending on
+    //all applicable values
+    public void CalculatePriority()
+    {
+
+    }
 
 
 }

@@ -25,6 +25,11 @@ public class Student
         //within the next week
     }
 
+    public void PriorityList()
+    {
+        
+    }
+
 
 
 
@@ -50,6 +55,8 @@ public class Student
     //7- submit doc due on 12/5 worth 30 points, takes 20 minutes
     //8- discussion due on 12/7 worth 20 points, takes 20 minutes
     //9- test due 12/5 worth 50 points, takes an hour
+
+    //HOW TO SORT?
 
     //initial step- order by due dates?
     //due dates- 2,7,9,3,5,6,8,1,4

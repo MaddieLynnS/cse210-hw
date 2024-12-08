@@ -18,4 +18,9 @@ public class Discussion : Assignment
         $"and requires {_numRequiredResponses}.\n It is due on {GetDate()}"+
         $" and is worth {GetPoints()}.");
     }
+
+    public override void CompleteAssignment()
+    {
+        throw new NotImplementedException();
+    }
 }

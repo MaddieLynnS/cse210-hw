@@ -15,4 +15,9 @@ public class Submission : Assignment
         Console.WriteLine($"This Submission Assignment has this file: {_fileName}."+
         $"\nIt's due on {GetDate()} and it's worth {GetPoints()} points.");
     }
+
+    public override void CompleteAssignment()
+    {
+        throw new NotImplementedException();
+    }
 }

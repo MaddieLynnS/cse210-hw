@@ -17,4 +17,9 @@ public class Test : Assignment
         Console.WriteLine($"This Test Assignment has {_questionAmount} and requires a response."+
         $"\nIt's due on {GetDate()} and it's worth {GetPoints()} points.");
     }
+
+    public override void CompleteAssignment()
+    {
+        throw new NotImplementedException();
+    }
 }

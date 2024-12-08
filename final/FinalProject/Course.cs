@@ -28,4 +28,10 @@ public class Course
             Console.WriteLine(a);
         }
     }
+
+    public void GetCourseGrade()
+    {
+        //gets scores of all assignments, averages them, and
+        //returns a letter grade
+    }
 }

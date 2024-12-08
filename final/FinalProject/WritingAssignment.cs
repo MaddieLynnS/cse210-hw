@@ -15,4 +15,9 @@ public class WritingAssignment : Assignment
         Console.WriteLine($"This Writing Assignment is about {_topic}."+
         $"\nIt's due on {GetDate()} and it's worth {GetPoints()} points.");
     }
+
+    public override void CompleteAssignment()
+    {
+        throw new NotImplementedException();
+    }
 }
