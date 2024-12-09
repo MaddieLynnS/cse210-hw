@@ -1,10 +1,20 @@
 public class Student
 {
+    private string _name;
     private List<Course> _allCourses = new List<Course>();
     //not sure yet if I need this? The courses would have all the assignments
     //but it does make sense to add them to a masterlist of sorts
     //private List<Assignment> _allAssignments = new List<Assignment>();
 
+    public Student(string name)
+    {
+        _name = name;
+    }
+
+    public void AddCourse(Course course)
+    {
+        _allCourses.Add(course);
+    }
 
     //prints list of all courses the Student is currently enrolled in
     public void ViewCourses()
@@ -15,6 +25,26 @@ public class Student
             Console.WriteLine($"{i}. {c.GetCourseName()}");
             i++;
         }
+        Thread.Sleep(3000);
+    }
+
+    public void ViewCourseAssignments(string courseName)
+    {
+        bool ran = false;
+        foreach (Course c in _allCourses)
+        {
+            if(c.GetCourseName() == courseName)
+            {
+                c.PrintCourseAssignments();
+                ran = true;
+            }
+        }
+        if (!ran)
+        {
+            Console.WriteLine("You are not currently enrolled in a course with "+
+            "that title. Please try again!");
+        }
+        Thread.Sleep(3000);
     }
 
     //prints list of assignments with due dates in the next week
@@ -27,7 +57,12 @@ public class Student
 
     public void PriorityList()
     {
-        
+
+    }
+
+    public override string ToString()
+    {
+        return $"Hello {_name}! We are glad you are a Student here!";
     }
 
 
@@ -68,5 +103,7 @@ public class Student
     //if assignment takes a lot longer to complete, move it up
     //- 6,9,2,5,7,1,4,3,8
     //if assignment comes from a course with a lower grade, it moves up
+
+    //implement whether assignment has been completed in assignment info
 
 }

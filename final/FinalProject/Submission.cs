@@ -1,23 +1,24 @@
 public class Submission : Assignment
 {
     private string _fileName;
-    private int _docType;
+    private string _docType;
 
-    public Submission(string name, int points, int dur, DateTime due, string file, int type)
+    public Submission(string name, int points, int dur, DateTime due, string doc)
     : base(name, points, dur, due)
     {
-        _fileName = file;
-        _docType = type;
+        _docType = doc;
     }
 
     public override void PrintAssignmentInfo()
     {
-        Console.WriteLine($"This Submission Assignment has this file: {_fileName}."+
-        $"\nIt's due on {GetDate()} and it's worth {GetPoints()} points.");
+        Console.WriteLine($"This Submission Assignment is about {GetName()}  and needs this file type: "+
+        $"{_docType} \nIt's due on {GetDate()} and it's worth {GetPoints()} points.");
     }
 
     public override void CompleteAssignment()
     {
-        throw new NotImplementedException();
+        Console.Write("Enter the name of the file you'd like to submit: ");
+        string file = Console.ReadLine();
+        _fileName = file;
     }
 }

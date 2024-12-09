@@ -4,12 +4,11 @@ public class Test : Assignment
     private int _questionAmount;
     private string _response;
 
-    public Test(string name, int points, int dur, DateTime due, int time, int questions, string res)
+    public Test(string name, int points, int dur, DateTime due, int time, int questions)
     : base(name, points, dur, due)
     {
         _timeLimit = time;
         _questionAmount = questions;
-        _response = res;
     }
 
     public override void PrintAssignmentInfo()
@@ -20,6 +19,7 @@ public class Test : Assignment
 
     public override void CompleteAssignment()
     {
-        throw new NotImplementedException();
+        Console.Write("Enter your response here: ");
+        _response = Console.ReadLine();
     }
 }

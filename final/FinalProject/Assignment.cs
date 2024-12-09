@@ -26,6 +26,11 @@ public abstract class Assignment
         _dueDate = due;
     }
 
+    public string GetName()
+    {
+        return _name;
+    }
+
     public DateTime GetDate()
     {
         return _dueDate;
