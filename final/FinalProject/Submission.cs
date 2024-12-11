@@ -12,7 +12,7 @@ public class Submission : Assignment
     public override void PrintAssignmentInfo()
     {
         Console.WriteLine($"This Submission Assignment is about {GetName()}  and needs this file type: "+
-        $"{_docType} \nIt's due on {GetDate()} and it's worth {GetPoints()} points.");
+        $"{_docType} \nIt's due on {GetDueDate()} and it's worth {GetPoints()} points.");
     }
 
     public override void CompleteAssignment()

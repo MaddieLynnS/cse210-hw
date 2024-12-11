@@ -13,7 +13,7 @@ public class WritingAssignment : Assignment
     public override void PrintAssignmentInfo()
     {
         Console.WriteLine($"This Writing Assignment is about {_description}."+
-        $"\nIt's due on {GetDate()} and it's worth {GetPoints()} points.");
+        $"\nIt's due on {GetDueDate()} and it's worth {GetPoints()} points.");
     }
 
     public override void CompleteAssignment()

@@ -11,7 +11,7 @@ public class Quiz : Assignment
     public override void PrintAssignmentInfo()
     {
         Console.WriteLine($"This Quiz Assignment has {_questionAmount} questions."+
-        $"\nIt's due on {GetDate()} and it's worth {GetPoints()} points.");
+        $"\nIt's due on {GetDueDate()} and it's worth {GetPoints()} points.");
     }
 
     public override void CompleteAssignment()

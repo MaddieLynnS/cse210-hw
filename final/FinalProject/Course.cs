@@ -15,6 +15,11 @@ public class Course
         return _courseName;
     }
 
+    public List<Assignment> GetAllAssignments()
+    {
+        return _courseAssignments;
+    }
+
     //if i really wanted to be extra I could let user enter multiple and
     //split them up myself but I'm not there right now
     public void AddAssignment(Assignment assignment)

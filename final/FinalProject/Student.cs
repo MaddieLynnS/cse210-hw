@@ -1,16 +1,24 @@
+using System.Runtime.CompilerServices;
+
 public class Student
 {
     private string _name;
     private List<Course> _allCourses = new List<Course>();
-    //not sure yet if I need this? The courses would have all the assignments
-    //but it does make sense to add them to a masterlist of sorts
-    //private List<Assignment> _allAssignments = new List<Assignment>();
+    private List<Assignment> _allAssignments = new List<Assignment>();
+    private List<Assignment> _organizedAssignments = new List<Assignment>();
 
     public Student(string name)
     {
         _name = name;
     }
 
+    //Standard student information to be printed upon starting the program
+    public override string ToString()
+    {
+        return $"Hello {_name}! We are glad you are a Student here!";
+    }
+
+    //Adds a course to the Courses list
     public void AddCourse(Course course)
     {
         _allCourses.Add(course);
@@ -19,6 +27,7 @@ public class Student
     //prints list of all courses the Student is currently enrolled in
     public void ViewCourses()
     {
+        Console.WriteLine("\nHere are the courses you are currently enrolled in: ");
         int i = 1;
         foreach(Course c in _allCourses)
         {
@@ -47,63 +56,75 @@ public class Student
         Thread.Sleep(3000);
     }
 
-    //prints list of assignments with due dates in the next week
-    //I don't need to save this list for any reason, so I just print it here
+    private void UpdateAssignmentsList()
+    {
+        //Empties list to ensure there are no duplicates created
+        //Maybe in future I create thing that just checks new assignments
+        //against existing list??
+        _allAssignments.Clear();
+        foreach (Course c in _allCourses)
+        {
+            foreach(Assignment a in c.GetAllAssignments())
+            {
+                _allAssignments.Add(a);
+            }
+        }
+    }
+
+    //prints list of all assignments organized by due date
     public void ShowCloseAssignments()
     {
-        //prints assignments from all courses that are due
-        //within the next week
+        UpdateAssignmentsList();
+        _organizedAssignments = _allAssignments.OrderByDescending(a => a.GetDueDate()).ToList();
+        int i = 1;
+        foreach (Assignment a in _organizedAssignments)
+        {
+            Console.WriteLine($"{i}. {a.GetName()} - Due on: {a.GetDueDate()}");
+            i++;
+        }
+        Thread.Sleep(3000);
     }
 
-    public void PriorityList()
+    public void ShowPriorityList()
     {
+        UpdateAssignmentsList();
+        foreach(Assignment a in _allAssignments)
+        {
+            a.CalculateInitialPriority();
+        }
+        _organizedAssignments = _allAssignments.OrderByDescending(a => a.GetPriority()).ToList();
 
+        CalculateFinalPriority(_organizedAssignments);
+
+        int i = 1;
+        foreach(Assignment a in _organizedAssignments)
+        {
+            Console.WriteLine($"{i}. {a.GetName()} - Priority number: {a.GetPriority()}");
+            Console.WriteLine($"Points: {a.GetPoints()}, Due Date: {a.GetDueDate().ToString("d")}");
+            i++;
+        }
+        Console.Write("Hit enter when you are done looking at this list: ");
+        Console.ReadLine();
     }
 
-    public override string ToString()
+    private void Swap(List<Assignment> list, int one, int two)
     {
-        return $"Hello {_name}! We are glad you are a Student here!";
+        (list[one], list[two]) = (list[two], list[one]);
     }
 
+    private void CalculateFinalPriority(List<Assignment> all)
+    {
+        for(int i = 0; i < all.Count - 1; i++)
+        {
+            //If next assignments' points are higher, move it up
+            if((all[i+1].GetPoints() > all[i].GetPoints()) &&
+            (all[i+1].GetDueDate() - all[i].GetDueDate()).Days < 2)
+            {
+                Swap(all, i, i+1);
+            }
+        }
 
+    }
 
-
-
-    //Prioritize assignments in following order?
-    //Closest to farthest due date of course
-    //Tests should always go on top
-    //Assignments with high priority will be just beneath any tests - i think this could be removed
-    //Assignments worth more points should trump low points
-    //if due within three days of each other
-    //Assignments that take longer to complete should trump
-    //assignments with similar points/due dates
-    //Assignments from the course with the lower overall grade
-    //should trump any short, low-point assignments
-
-    //Example implementing the above logic
-    //1- quiz due on 12/8 worth 40 points, takes 15 minutes
-    //2- writing due on 12/5 worth 100 points, takes five hours
-    //3- submit pic due on 12/6 worth 20 points, takes 5 minutes
-    //4- writing due on 12/9 worth 50 points, takes 2 hours
-    //5- discussion due on 12/6 worth 40 points, takes 30 minutes
-    //6- test due 12/7 worth 100 points, takes an hour
-    //7- submit doc due on 12/5 worth 30 points, takes 20 minutes
-    //8- discussion due on 12/7 worth 20 points, takes 20 minutes
-    //9- test due 12/5 worth 50 points, takes an hour
-
-    //HOW TO SORT?
-
-    //initial step- order by due dates?
-    //due dates- 2,7,9,3,5,6,8,1,4
-    //tests move to top - 9,6,2,7,3,5,8,1,4
-    //move up assignments on same day worth more points
-    //6,9,2,7,5,3,8,1,4
-    //if next day (or two days out) assignment is worth more, move it up
-    //- 6,9,2,5,7,1,3,4,8
-    //if assignment takes a lot longer to complete, move it up
-    //- 6,9,2,5,7,1,4,3,8
-    //if assignment comes from a course with a lower grade, it moves up
-
-    //implement whether assignment has been completed in assignment info
 
 }

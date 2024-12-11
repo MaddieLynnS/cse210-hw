@@ -14,12 +14,17 @@ public class Test : Assignment
     public override void PrintAssignmentInfo()
     {
         Console.WriteLine($"This Test Assignment has {_questionAmount} and requires a response."+
-        $"\nIt's due on {GetDate()} and it's worth {GetPoints()} points.");
+        $"\nIt's due on {GetDueDate()} and it's worth {GetPoints()} points.");
     }
 
     public override void CompleteAssignment()
     {
         Console.Write("Enter your response here: ");
         _response = Console.ReadLine();
+    }
+
+    public override void CalculateInitialPriority()
+    {
+        SetPriority(10);
     }
 }

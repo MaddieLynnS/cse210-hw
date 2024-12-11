@@ -15,7 +15,7 @@ public class Discussion : Assignment
     public override void PrintAssignmentInfo()
     {
         Console.WriteLine($"This Discussion assignment is about {_description} "+
-        $"and requires {_numRequiredResponses}.\n It is due on {GetDate()}"+
+        $"and requires {_numRequiredResponses}.\n It is due on {GetDueDate()}"+
         $" and is worth {GetPoints()}.");
     }
 
