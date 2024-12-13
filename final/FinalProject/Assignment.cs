@@ -67,16 +67,20 @@ public abstract class Assignment
     public abstract void PrintAssignmentInfo();
     public abstract void CompleteAssignment();
 
-    public void MarkComplete()
+    public void MarkComplete(DateTime due, double penalty)
     {
-        int input = 0;
-        while(input < 1 || input > _pointValue)
+        double score = 0;
+        while(score < 1 || score > _pointValue)
         {
             Console.Write("Enter the score you got for this assignment (1-"+
             $"{_pointValue}): ");
-            input = int.Parse(Console.ReadLine());
+            score = int.Parse(Console.ReadLine());
         }
-        SetScore(input);
+        if (DateTime.Now > due)
+        {
+            score *= penalty;
+        }
+        SetScore((int)score);
         _isCompleted = true;
     }
 
@@ -86,6 +90,8 @@ public abstract class Assignment
     //Is the same for all assignments
     public void CalculateInitialPriority(Assignment a)
     {
+        //resets priority so it doesn't increase every time the
+        //user runs this method while they are using the program
         a._priorty = 0;
 
         //if it is a Test assignment that is due within the next

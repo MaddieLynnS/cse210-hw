@@ -17,6 +17,11 @@ public class Course
         return _courseName;
     }
 
+    public double GetLatePenalty()
+    {
+        return _latePenalty;
+    }
+
     public double GetCourseGrade()
     {
         return _courseGrade;
@@ -35,11 +40,10 @@ public class Course
     }
 
 
+    //gets scores of all completed assignments for a class, averages them,
+    //updates _courseGrade variabe, and returns a letter grade
     public string CalculateCourseGrade()
     {
-        string grade = "";
-        //gets scores of all assignments, averages them,
-        //updates _courseGrade variabe, and returns a letter grade
         int totalPointsPossible = 0;
         int totalActualPoints = 0;
         foreach(Assignment a in _courseAssignments)
@@ -50,29 +54,26 @@ public class Course
                 totalActualPoints += a.GetScore();
             }
         }
-        _courseGrade = (double)totalActualPoints / (double)totalPointsPossible;
-        Console.WriteLine(_courseGrade);
-        if(_courseGrade > .90) 
+        _courseGrade = Math.Round(((double)totalActualPoints / (double)totalPointsPossible) * 100);
+        if(_courseGrade > 90) 
         {
-            grade = "A";
+            return $"{_courseGrade}% - A";
         } 
-        else if(_courseGrade > .80) 
+        else if(_courseGrade > 80) 
         {
-            grade = "B";
+            return $"{_courseGrade}% - B";
         } 
-        else if(_courseGrade > .70) 
+        else if(_courseGrade > 70) 
         {
-            grade = "C";
+            return $"{_courseGrade}% - C";
         } 
-        else if(_courseGrade > .60) 
+        else if(_courseGrade > 60) 
         {
-            grade = "D";
+            return $"{_courseGrade}% - D";
         } 
         else 
         {
-            grade = "F";
+            return $"{_courseGrade}% - F";
         }
-
-        return grade;
     }
 }

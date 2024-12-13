@@ -29,6 +29,5 @@ public class Discussion : Assignment
             Console.Write("Enter your word count for this response: ");
             _wordCount += int.Parse(Console.ReadLine());
         }
-        MarkComplete();
     }
 }

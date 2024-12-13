@@ -19,6 +19,5 @@ public class Quiz : Assignment
     {
         Console.Write("Enter your string of answers, separated by commas: ");
         _answers = Console.ReadLine().Split(',');
-        MarkComplete();
     }
 }

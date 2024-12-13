@@ -19,6 +19,5 @@ public class Submission : Assignment
     {
         Console.Write("Enter the name of the file you'd like to submit: ");
         _fileName = Console.ReadLine() + $".{_docType}";
-        MarkComplete();
     }
 }

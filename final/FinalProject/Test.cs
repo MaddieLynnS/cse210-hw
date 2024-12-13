@@ -25,6 +25,5 @@ public class Test : Assignment
         _answers = Console.ReadLine().Split(',');
         Console.Write("Enter your response here: ");
         _response = Console.ReadLine();
-        MarkComplete();
     }
 }

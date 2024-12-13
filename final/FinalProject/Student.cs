@@ -50,7 +50,7 @@ public class Student
                 {
                     if(!a.IsComplete())
                     {
-                        Console.Write($"\n{i}. ");
+                        Console.Write($"\n{i}. {a.GetName()} - ");
                         a.PrintAssignmentInfo();
                         i++;
                     }
@@ -96,17 +96,24 @@ public class Student
         }
     }
 
-    public void MarkAssignmentComplete(string course, int i)
+    public void MarkAssignmentComplete(string course, string assignment)
     {
         bool ran = false;
         foreach (Course c in _allCourses)
         {
             if(c.GetCourseName() == course)
             {
-                c.GetCourseAssignments()[i-1].MarkComplete();
-                ran = true;
-                Console.WriteLine($"You have completed this assignment: "+
-                $"{c.GetCourseAssignments()[i-1].GetName()}");
+                foreach(Assignment a in c.GetCourseAssignments())
+                {
+                    if(a.GetName() == assignment)
+                    {
+                        a.CompleteAssignment();
+                        a.MarkComplete(a.GetDueDate(), c.GetLatePenalty());
+                        ran = true;
+                        Console.WriteLine($"You have completed this assignment: "+
+                        $"{a.GetName()}");
+                    }
+                }
             }
         }
         if (!ran)
@@ -173,8 +180,6 @@ public class Student
             {
                 Swap(all, i, i+1);
             }
-
-            //Probably need one for if assignment is due way more days than a test
 
             //also one for if a course grade is lower in one class than in another
         }

@@ -24,6 +24,5 @@ public class WritingAssignment : Assignment
         //If I had more time I'd actually count the words in the submission
         Console.Write("Enter the word count for this submission: ");
         _wordCount = int.Parse(Console.ReadLine());
-        MarkComplete();
     }
 }

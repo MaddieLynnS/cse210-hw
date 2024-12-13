@@ -6,13 +6,6 @@ class Program
     static void Main(string[] args)
     {
 
-        // Console.WriteLine(english.GetType().ToString());
-
-        // if (english.GetType().ToString() == "Course")
-        // {
-        //     Console.WriteLine("Hooray- you did it.");
-
-        // }
         //Have student enter name, retrieve proper txt file
          //Student file will resave itself upon learner quitting,
         //ensuring any assignment updates will be saved
@@ -49,16 +42,17 @@ class Program
         math.AddAssignment(new Quiz("Pop Quiz: Basic Algebra", 20, 15, DateTime.Now.AddDays(2), 15));
         math.AddAssignment(new Test("Comprehensive Test: Math in all Forms", 180, 150, DateTime.Now.AddDays(25), 90, 45));
 
-        user.MarkAssignmentComplete("Eng 101", 1);
-        user.MarkAssignmentComplete("Eng 101", 2);
-        user.MarkAssignmentComplete("Eng 101", 3);
-        user.MarkAssignmentComplete("Eng 101", 4);
+        user.MarkAssignmentComplete("Eng 101", "Essay on Climate Change");
+        user.MarkAssignmentComplete("Eng 101", "Portfolio Submission: Creative Writing Samples");
+        user.MarkAssignmentComplete("Eng 101", "Midterm Exam: English Literature");
+        user.MarkAssignmentComplete("Sci 220", "Peer Discussion: Impact of Globalization on Culture");
+        user.MarkAssignmentComplete("Sci 220", "Quiz: World Geography");
 
         //~~~~~~~~~~~~~~~
         //Intro Text
         //~~~~~~~~~~~~~~~
 
-        //Console.Clear();
+        Console.Clear();
         Console.WriteLine(user.ToString());
         Console.WriteLine("Welcome to your account! Here you can view grades,"+
         " check assignment due dates, and turn in assignments! \nYou can also"+
@@ -89,12 +83,15 @@ class Program
             Console.Write("What would you like to do? Enter a number 1-9: ");
             string input = Console.ReadLine();
 
-            //Error handling- makes user enter a number
+            //Error handling- makes user enter a number from 1-9
             while(true)
             {
                 if(int.TryParse(input, out userInput))
                 {
-                    break;
+                    if(userInput > 0 && userInput < 10)
+                    {
+                        break;
+                    }
                 }
                 else
                 {
@@ -117,7 +114,7 @@ class Program
                     Console.Write("Enter the course containing the assignments you "+
                     "would like to see: ");
                     user.ViewCourseAssignments(Console.ReadLine());
-                    Console.Write("Hit enter when you are done looking at this list: ");
+                    Console.Write("\nHit enter when you are done looking at this list: ");
                     Console.ReadLine();
                     break;
                 
@@ -135,8 +132,7 @@ class Program
                     Console.ReadLine();
                     break;
                 
-                //Lets user see a letter grade and percentage for a
-                //certain course
+                //Lets user see a letter grade and percentage for a certain course
                 case 5:
                     Console.Write("Enter the course that you want to check"+
                     " your grade for: ");
@@ -153,16 +149,19 @@ class Program
                     string courseName = Console.ReadLine();
                     user.ViewCourseAssignments(courseName);
                     Console.Write("\nWhich assignment would you like to complete? Enter its"+
-                    " number from the list: ");
-                    user.MarkAssignmentComplete(courseName, int.Parse(Console.ReadLine()));
+                    " name from the list: ");
+                    user.MarkAssignmentComplete(courseName, Console.ReadLine());
                     break;
+
                 case 8:
                     break;
+
                 case 9:
+                    Console.WriteLine("Thank you for logging on today! Hope this was helpful! :)");
                     break;
+
                 default:
-                //This is maybe needing to be fixed I guess?? Just so menu doesn't reprint
-                    Console.WriteLine("Your entry was outside the indicated range. Try again!");
+                    Console.WriteLine("sOMETHING CrAZY happened that wasn't supposed to! Try again!");
                     break;
             }
         }
