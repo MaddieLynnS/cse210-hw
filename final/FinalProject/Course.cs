@@ -4,6 +4,8 @@ public class Course
     private string _courseName;
     private double _latePenalty;
 
+    private double _courseGrade;
+
     public Course (string name)
     {
         _courseName = name;
@@ -15,7 +17,12 @@ public class Course
         return _courseName;
     }
 
-    public List<Assignment> GetAllAssignments()
+    public double GetCourseGrade()
+    {
+        return _courseGrade;
+    }
+
+    public List<Assignment> GetCourseAssignments()
     {
         return _courseAssignments;
     }
@@ -27,20 +34,45 @@ public class Course
         _courseAssignments.Add(assignment);
     }
 
-    public void PrintCourseAssignments()
+
+    public string CalculateCourseGrade()
     {
-        int i = 1;
+        string grade = "";
+        //gets scores of all assignments, averages them,
+        //updates _courseGrade variabe, and returns a letter grade
+        int totalPointsPossible = 0;
+        int totalActualPoints = 0;
         foreach(Assignment a in _courseAssignments)
         {
-            Console.Write($"\n{i}. ");
-            a.PrintAssignmentInfo();
-            i++;
+            if(a.IsComplete())
+            {
+                totalPointsPossible += a.GetPoints();
+                totalActualPoints += a.GetScore();
+            }
         }
-    }
+        _courseGrade = (double)totalActualPoints / (double)totalPointsPossible;
+        Console.WriteLine(_courseGrade);
+        if(_courseGrade > .90) 
+        {
+            grade = "A";
+        } 
+        else if(_courseGrade > .80) 
+        {
+            grade = "B";
+        } 
+        else if(_courseGrade > .70) 
+        {
+            grade = "C";
+        } 
+        else if(_courseGrade > .60) 
+        {
+            grade = "D";
+        } 
+        else 
+        {
+            grade = "F";
+        }
 
-    public void GetCourseGrade()
-    {
-        //gets scores of all assignments, averages them, and
-        //returns a letter grade
+        return grade;
     }
 }

@@ -18,7 +18,7 @@ public class Submission : Assignment
     public override void CompleteAssignment()
     {
         Console.Write("Enter the name of the file you'd like to submit: ");
-        string file = Console.ReadLine();
-        _fileName = file;
+        _fileName = Console.ReadLine() + $".{_docType}";
+        MarkComplete();
     }
 }

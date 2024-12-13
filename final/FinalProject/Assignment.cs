@@ -1,3 +1,5 @@
+using System.Runtime.CompilerServices;
+
 public abstract class Assignment
 {
     private string _name;
@@ -37,14 +39,18 @@ public abstract class Assignment
         return _pointValue;
     }
 
+    public int GetScore()
+    {
+        return _score;
+    }
+    public void SetScore(int score)
+    {
+        _score = score;
+    }
+
     public int GetPriority()
     {
         return _priorty;
-    }
-
-    public void SetPriority(int add)
-    {
-        _priorty += add;
     }
 
     public DateTime GetDueDate()
@@ -52,41 +58,72 @@ public abstract class Assignment
         return _dueDate.Date;
     }
 
+    public bool IsComplete()
+    {
+        return _isCompleted;
+    }
+
 
     public abstract void PrintAssignmentInfo();
     public abstract void CompleteAssignment();
+
+    public void MarkComplete()
+    {
+        int input = 0;
+        while(input < 1 || input > _pointValue)
+        {
+            Console.Write("Enter the score you got for this assignment (1-"+
+            $"{_pointValue}): ");
+            input = int.Parse(Console.ReadLine());
+        }
+        SetScore(input);
+        _isCompleted = true;
+    }
+
     
     //Order by a sorting value, increase points depending on
     //all applicable values
-    public virtual void CalculateInitialPriority()
+    //Is the same for all assignments
+    public void CalculateInitialPriority(Assignment a)
     {
-        //very clumsy first attempt but here goes nothing
+        a._priorty = 0;
+
+        //if it is a Test assignment that is due within the next
+        //two weeks, it gets 10 priority
+
+        if(a.GetType().ToString() == "Test")
+        {
+            if((a._dueDate - DateTime.Now).Days < 14)
+            {
+                a._priorty += 10;
+            }
+        }
 
         //Due Date adds points
-        if((_dueDate - DateTime.Now).Days < 2)
+        if((a._dueDate - DateTime.Now).Days < 2)
         {
-            _priorty += 2;
+            a._priorty += 2;
         }
-        else if((_dueDate - DateTime.Now).Days < 5)
+        else if((a._dueDate - DateTime.Now).Days < 5)
         {
-            _priorty++;
+            a._priorty++;
         }
 
         //Worth more points
-        _priorty += (int)Math.Floor((double)(_pointValue / 100));
+        a._priorty += (int)Math.Floor((double)(a._pointValue / 100));
 
         //Time to complete
-        if(_timeToComplete >= 180)
+        if(a._timeToComplete >= 180)
         {
-            _priorty += 3;
+            a._priorty += 3;
         }
-        else if (_timeToComplete >= 120)
+        else if (a._timeToComplete >= 120)
         {
-            _priorty += 2;
+            a._priorty += 2;
         }
-        else if (_timeToComplete >= 60)
+        else if (a._timeToComplete >= 60)
         {
-            _priorty++;
+            a._priorty++;
         }
     }
 
@@ -103,18 +140,20 @@ public abstract class Assignment
 
     //HOW TO SORT?
 
-    //initial step- order by due dates?
+    //--//initial step- order by due dates?
     //due dates- 2,7,9,3,5,6,8,1,4
-    //tests move to top - 9,6,2,7,3,5,8,1,4
-    //move up assignments on same day worth more points
+    //--//tests move to top - 9,6,2,7,3,5,8,1,4
+    //--//move up assignments on same day worth more points
     //6,9,2,7,5,3,8,1,4
-    //if next day (or two days out) assignment is worth more, move it up
+    //--//if next day (or two days out) assignment is worth more, move it up
     //- 6,9,2,5,7,1,3,4,8
-    //if assignment takes a lot longer to complete, move it up
+    //--//if assignment takes a lot longer to complete, move it up
     //- 6,9,2,5,7,1,4,3,8
     //if assignment comes from a course with a lower grade, it moves up
 
     //implement whether assignment has been completed in assignment info
+
+    //COMPLETED ASSIGNMENTS SHOULDN"T SHOW UP ON LISTSSSSS
 
 
 }

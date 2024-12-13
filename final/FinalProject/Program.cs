@@ -17,25 +17,6 @@ class Program
          //Student file will resave itself upon learner quitting,
         //ensuring any assignment updates will be saved
 
-        List<int> ints = new List<int>
-        {1, 4, 60, 44, 20, 12, 33};
-
-        List<int> sortedInts = ints.OrderByDescending(i => i).ToList();
-
-        foreach(int i in sortedInts)
-        {
-            Console.Write($"{i}, ");
-        }
-
-        // for (int i = 0; i < ints.Count(); i++)
-        // {
-        //     if(ints[i+1] > ints[i])
-        //     {
-
-        //     }
-        // }
-
-
 
         Student user = new Student("Bob");
         Course english = new Course("Eng 101");
@@ -48,6 +29,7 @@ class Program
         user.AddCourse(math);
 
         //EXAMPLE ASSIGNMENTS CREATED BY CHATGPT, then tailored and added by me
+        //Update datetime thing cuz that's not practical
         english.AddAssignment(new WritingAssignment("Essay on Climate Change", 100, 120, DateTime.Now.AddDays(7), "Climate change in Malaysia in the 1500s", 500));
         english.AddAssignment(new WritingAssignment("Book Analysis: '1984' by George Orwell", 75, 90, DateTime.Now.AddDays(10), "Explain your thoughts on this book", 1000));
         english.AddAssignment(new Submission("Portfolio Submission: Creative Writing Samples", 120, 150, DateTime.Now.AddDays(12), "docx"));
@@ -66,6 +48,15 @@ class Program
         
         math.AddAssignment(new Quiz("Pop Quiz: Basic Algebra", 20, 15, DateTime.Now.AddDays(2), 15));
         math.AddAssignment(new Test("Comprehensive Test: Math in all Forms", 180, 150, DateTime.Now.AddDays(25), 90, 45));
+
+        user.MarkAssignmentComplete("Eng 101", 1);
+        user.MarkAssignmentComplete("Eng 101", 2);
+        user.MarkAssignmentComplete("Eng 101", 3);
+        user.MarkAssignmentComplete("Eng 101", 4);
+
+        //~~~~~~~~~~~~~~~
+        //Intro Text
+        //~~~~~~~~~~~~~~~
 
         //Console.Clear();
         Console.WriteLine(user.ToString());
@@ -92,6 +83,8 @@ class Program
             Console.WriteLine("7. Complete an assignment");
             Console.WriteLine("8. Create a new assignment");
             Console.WriteLine("9. Quit");
+            //Pretend bonus could be to see score on past assignments
+            //wouldn't be hard to implement but would take time
 
             Console.Write("What would you like to do? Enter a number 1-9: ");
             string input = Console.ReadLine();
@@ -123,25 +116,45 @@ class Program
                 case 2:
                     Console.Write("Enter the course containing the assignments you "+
                     "would like to see: ");
-                    string courseInput = Console.ReadLine();
-                    user.ViewCourseAssignments(courseInput);
+                    user.ViewCourseAssignments(Console.ReadLine());
+                    Console.Write("Hit enter when you are done looking at this list: ");
+                    Console.ReadLine();
                     break;
                 
                 //Show user all assignments for all classes, ordered by due date
                 case 3:
-                    user.ShowCloseAssignments();
+                    user.GetCloseAssignments();
+                    Console.Write("\nHit enter when you are done looking at this list: ");
+                    Console.ReadLine();
                     break;
 
                 //Shows user all assignments ordered by priority
                 case 4:
                     user.ShowPriorityList();
+                    Console.Write("\nHit enter when you are done looking at this list: ");
+                    Console.ReadLine();
+                    break;
+                
+                //Lets user see a letter grade and percentage for a
+                //certain course
+                case 5:
+                    Console.Write("Enter the course that you want to check"+
+                    " your grade for: ");
+                    user.ViewCourseGrade(Console.ReadLine());
                     break;
 
-                case 5:
-                    break;
                 case 6:
                     break;
+
+                //Lets user manually complete an assignment
                 case 7:
+                    Console.Write("Enter the course containing the assignment you "+
+                    "would like to complete: ");
+                    string courseName = Console.ReadLine();
+                    user.ViewCourseAssignments(courseName);
+                    Console.Write("\nWhich assignment would you like to complete? Enter its"+
+                    " number from the list: ");
+                    user.MarkAssignmentComplete(courseName, int.Parse(Console.ReadLine()));
                     break;
                 case 8:
                     break;

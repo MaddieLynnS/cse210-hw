@@ -15,12 +15,20 @@ public class Discussion : Assignment
     public override void PrintAssignmentInfo()
     {
         Console.WriteLine($"This Discussion assignment is about {_description} "+
-        $"and requires {_numRequiredResponses}.\n It is due on {GetDueDate()}"+
+        $"and requires {_numRequiredResponses} responses.\n It is due on {GetDueDate()}"+
         $" and is worth {GetPoints()}.");
     }
 
     public override void CompleteAssignment()
     {
-        throw new NotImplementedException();
+        for(int i=1; i<=_numRequiredResponses; i++)
+        {
+            Console.Write("Enter your response: ");
+            Console.ReadLine();
+
+            Console.Write("Enter your word count for this response: ");
+            _wordCount += int.Parse(Console.ReadLine());
+        }
+        MarkComplete();
     }
 }

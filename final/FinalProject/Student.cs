@@ -1,3 +1,4 @@
+using System.Reflection;
 using System.Runtime.CompilerServices;
 
 public class Student
@@ -44,7 +45,16 @@ public class Student
         {
             if(c.GetCourseName() == courseName)
             {
-                c.PrintCourseAssignments();
+                int i = 1;
+                foreach(Assignment a in c.GetCourseAssignments())
+                {
+                    if(!a.IsComplete())
+                    {
+                        Console.Write($"\n{i}. ");
+                        a.PrintAssignmentInfo();
+                        i++;
+                    }
+                }
                 ran = true;
             }
         }
@@ -53,36 +63,70 @@ public class Student
             Console.WriteLine("You are not currently enrolled in a course with "+
             "that title. Please try again!");
         }
+    }
+
+    public void ViewCourseGrade(string courseName)
+    {
+        foreach(Course c in _allCourses)
+        {
+            if(c.GetCourseName() == courseName)
+            {
+                Console.WriteLine($"Here is your grade for this class: "+
+                $"{c.CalculateCourseGrade()}");
+            }
+        }
         Thread.Sleep(3000);
     }
 
+    //Empties list to ensure there are no duplicates created
+    //Maybe in future I create thing that just checks new assignments
+    //against existing list??
     private void UpdateAssignmentsList()
     {
-        //Empties list to ensure there are no duplicates created
-        //Maybe in future I create thing that just checks new assignments
-        //against existing list??
         _allAssignments.Clear();
         foreach (Course c in _allCourses)
         {
-            foreach(Assignment a in c.GetAllAssignments())
+            foreach(Assignment a in c.GetCourseAssignments())
             {
-                _allAssignments.Add(a);
+                if(!a.IsComplete())
+                {
+                    _allAssignments.Add(a);
+                }
             }
         }
     }
 
+    public void MarkAssignmentComplete(string course, int i)
+    {
+        bool ran = false;
+        foreach (Course c in _allCourses)
+        {
+            if(c.GetCourseName() == course)
+            {
+                c.GetCourseAssignments()[i-1].MarkComplete();
+                ran = true;
+                Console.WriteLine($"You have completed this assignment: "+
+                $"{c.GetCourseAssignments()[i-1].GetName()}");
+            }
+        }
+        if (!ran)
+        {
+            Console.WriteLine("You are not currently enrolled in a course with "+
+            "that title. Please try again!");
+        }
+    }
+
     //prints list of all assignments organized by due date
-    public void ShowCloseAssignments()
+    public void GetCloseAssignments()
     {
         UpdateAssignmentsList();
-        _organizedAssignments = _allAssignments.OrderByDescending(a => a.GetDueDate()).ToList();
+        _organizedAssignments = _allAssignments.OrderBy(a => a.GetDueDate()).ToList();
         int i = 1;
         foreach (Assignment a in _organizedAssignments)
         {
-            Console.WriteLine($"{i}. {a.GetName()} - Due on: {a.GetDueDate()}");
+            Console.WriteLine($"{i}. {a.GetName()} - Due on: {a.GetDueDate().ToShortDateString()}");
             i++;
         }
-        Thread.Sleep(3000);
     }
 
     public void ShowPriorityList()
@@ -90,7 +134,7 @@ public class Student
         UpdateAssignmentsList();
         foreach(Assignment a in _allAssignments)
         {
-            a.CalculateInitialPriority();
+            a.CalculateInitialPriority(a);
         }
         _organizedAssignments = _allAssignments.OrderByDescending(a => a.GetPriority()).ToList();
 
@@ -103,8 +147,6 @@ public class Student
             Console.WriteLine($"Points: {a.GetPoints()}, Due Date: {a.GetDueDate().ToString("d")}");
             i++;
         }
-        Console.Write("Hit enter when you are done looking at this list: ");
-        Console.ReadLine();
     }
 
     private void Swap(List<Assignment> list, int one, int two)
@@ -116,12 +158,25 @@ public class Student
     {
         for(int i = 0; i < all.Count - 1; i++)
         {
-            //If next assignments' points are higher, move it up
+            //If next assignments' points are higher within a few days from now,
+            //move it up
             if((all[i+1].GetPoints() > all[i].GetPoints()) &&
             (all[i+1].GetDueDate() - all[i].GetDueDate()).Days < 2)
             {
                 Swap(all, i, i+1);
             }
+
+            //Currently needed, but I'm not sure if it will stay
+            //Just for tests to ensure they are ordered by due date correctly
+            if((all[i+1].GetType().ToString() == "Test") && (all[i].GetType().ToString() == "Test")
+            && ((all[i+1].GetDueDate() - DateTime.Now) < (all[i].GetDueDate() - DateTime.Now)))
+            {
+                Swap(all, i, i+1);
+            }
+
+            //Probably need one for if assignment is due way more days than a test
+
+            //also one for if a course grade is lower in one class than in another
         }
 
     }

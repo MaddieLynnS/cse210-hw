@@ -1,6 +1,7 @@
 public class Quiz : Assignment
 {
     private int _questionAmount;
+    private Array _answers;
 
     public Quiz(string name, int points, int dur, DateTime due, int questions)
     : base(name, points, dur, due)
@@ -16,6 +17,8 @@ public class Quiz : Assignment
 
     public override void CompleteAssignment()
     {
-        throw new NotImplementedException();
+        Console.Write("Enter your string of answers, separated by commas: ");
+        _answers = Console.ReadLine().Split(',');
+        MarkComplete();
     }
 }
