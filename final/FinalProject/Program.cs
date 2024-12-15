@@ -5,16 +5,14 @@ class Program
 {
     static void Main(string[] args)
     {
-
-        //Have student enter name, retrieve proper txt file
-         //Student file will resave itself upon learner quitting,
-        //ensuring any assignment updates will be saved
-
-
+        //Example person to use for testing code functionality
+        //Bob has 4 default courses that contain 15 assignments total
+        //You must "complete" some of these assignments
+        //in order to check his grades for a certain class or overall
         Student user = new Student("Bob");
         Course english = new Course("Eng 101");
         Course science = new Course("Sci 220");
-        Course coding = new Course("Intro to Programming 101");
+        Course coding = new Course("Intro to Programming");
         Course math = new Course("Math for Dummies");
         user.AddCourse(english);
         user.AddCourse(science);
@@ -22,7 +20,6 @@ class Program
         user.AddCourse(math);
 
         //EXAMPLE ASSIGNMENTS CREATED BY CHATGPT, then tailored and added by me
-        //Update datetime thing cuz that's not practical
         english.AddAssignment(new WritingAssignment("Essay on Climate Change", 100, 120, DateTime.Now.AddDays(7), "Climate change in Malaysia in the 1500s", 500));
         english.AddAssignment(new WritingAssignment("Book Analysis: '1984' by George Orwell", 75, 90, DateTime.Now.AddDays(10), "Explain your thoughts on this book", 1000));
         english.AddAssignment(new Submission("Portfolio Submission: Creative Writing Samples", 120, 150, DateTime.Now.AddDays(12), "docx"));
@@ -42,17 +39,11 @@ class Program
         math.AddAssignment(new Quiz("Pop Quiz: Basic Algebra", 20, 15, DateTime.Now.AddDays(2), 15));
         math.AddAssignment(new Test("Comprehensive Test: Math in all Forms", 180, 150, DateTime.Now.AddDays(25), 90, 45));
 
-        user.MarkAssignmentComplete("Eng 101", "Essay on Climate Change");
-        user.MarkAssignmentComplete("Eng 101", "Portfolio Submission: Creative Writing Samples");
-        user.MarkAssignmentComplete("Eng 101", "Midterm Exam: English Literature");
-        user.MarkAssignmentComplete("Sci 220", "Peer Discussion: Impact of Globalization on Culture");
-        user.MarkAssignmentComplete("Sci 220", "Quiz: World Geography");
-
         //~~~~~~~~~~~~~~~
         //Intro Text
         //~~~~~~~~~~~~~~~
 
-        Console.Clear();
+        //Console.Clear();
         Console.WriteLine(user.ToString());
         Console.WriteLine("Welcome to your account! Here you can view grades,"+
         " check assignment due dates, and turn in assignments! \nYou can also"+
@@ -65,7 +56,6 @@ class Program
         int userInput = 0;
         while (userInput != 9)
         {
-
             //Standard menu options
             Console.WriteLine("\nHere are the options you can choose from: ");
             Console.WriteLine("1. See courses");
@@ -77,8 +67,6 @@ class Program
             Console.WriteLine("7. Complete an assignment");
             Console.WriteLine("8. Create a new assignment");
             Console.WriteLine("9. Quit");
-            //Pretend bonus could be to see score on past assignments
-            //wouldn't be hard to implement but would take time
 
             Console.Write("What would you like to do? Enter a number 1-9: ");
             string input = Console.ReadLine();
@@ -139,7 +127,9 @@ class Program
                     user.ViewCourseGrade(Console.ReadLine());
                     break;
 
+                //Lets user see a cumulative GPA based on their scores in all of their classes
                 case 6:
+                    user.ViewGPA();
                     break;
 
                 //Lets user manually complete an assignment
@@ -153,9 +143,15 @@ class Program
                     user.MarkAssignmentComplete(courseName, Console.ReadLine());
                     break;
 
+                //Lets a user create a new assignment
                 case 8:
+                    user.ViewCourses();
+                    Console.Write("Which course would you like to enter this assignment"+
+                    " for? Enter the course name: ");
+                    user.CreateAssignment(Console.ReadLine());
                     break;
 
+                //Ends loop
                 case 9:
                     Console.WriteLine("Thank you for logging on today! Hope this was helpful! :)");
                     break;

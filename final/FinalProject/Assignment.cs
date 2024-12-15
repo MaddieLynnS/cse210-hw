@@ -30,6 +30,7 @@ public abstract class Assignment
         _dueDate = due;
     }
 
+    //GETTERS
     public string GetName()
     {
         return _name;
@@ -38,7 +39,6 @@ public abstract class Assignment
     {
         return _pointValue;
     }
-
     public int GetScore()
     {
         return _score;
@@ -47,26 +47,26 @@ public abstract class Assignment
     {
         _score = score;
     }
-
     public int GetPriority()
     {
         return _priorty;
     }
-
     public DateTime GetDueDate()
     {
         return _dueDate.Date;
     }
-
     public bool IsComplete()
     {
         return _isCompleted;
     }
 
-
+    //Prints information about a specific assignment based on its type
     public abstract void PrintAssignmentInfo();
+
+    //Updates certain values based on user input and assignment type
     public abstract void CompleteAssignment();
 
+    //All assignments need their score value updated
     public void MarkComplete(DateTime due, double penalty)
     {
         double score = 0;
@@ -78,12 +78,12 @@ public abstract class Assignment
         }
         if (DateTime.Now > due)
         {
+            _isLate = true;
             score *= penalty;
         }
         SetScore((int)score);
         _isCompleted = true;
     }
-
     
     //Order by a sorting value, increase points depending on
     //all applicable values
@@ -96,7 +96,6 @@ public abstract class Assignment
 
         //if it is a Test assignment that is due within the next
         //two weeks, it gets 10 priority
-
         if(a.GetType().ToString() == "Test")
         {
             if((a._dueDate - DateTime.Now).Days < 14)
@@ -157,9 +156,7 @@ public abstract class Assignment
     //- 6,9,2,5,7,1,4,3,8
     //if assignment comes from a course with a lower grade, it moves up
 
-    //implement whether assignment has been completed in assignment info
-
-    //COMPLETED ASSIGNMENTS SHOULDN"T SHOW UP ON LISTSSSSS
-
+    //I could very much make this priority stuff better but this is what I have
+    //at the moment :)
 
 }

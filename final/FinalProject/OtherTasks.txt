@@ -1,0 +1,16 @@
+~Added menu functionality: see score on past assignments
+~Fix problem with due dates- they currently keep moving farther into the future because they
+are set currently using DateTime.Now.AddDays
+~Verify that completed assignments don't show up on any printed lists
+~Print whether a course has been completed in PrintAssignmentInfo
+~Fix Priority jankiness
+~Make it so you can manually complete an assignment from the outside??
+~Save people in .txt files so they can be loaded for future use
+~Error handling for ALL user input -_-
+~See about implementing a function that will like accept a string if it's close enough lol
+~Maybe in future I create thing that just checks new assignments against existing list for
+UpdateAssignmentList??
+~Implement further sorting in Priority for if a course grade is lower in one class than in another
+~if i really wanted to be extra I could let user enter multiple assignments into AddAssignment
+and split them up myself but I'm not there right now
+~Count the words in a submission of text mwahaha
